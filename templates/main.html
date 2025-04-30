@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}대시보드{% endblock %}
+
+{% block content %}
+  <header>
+    <h1>대시보드</h1>
+    <div class="header-actions">
+      <button>설정</button>
+      <button>도움말</button>
+    </div>
+  </header>
+
+  <div class="dashboard-summary">
+    <div class="card">총 사용자 수: 1,250</div>
+    <div class="card">활성 채용공고: 45</div>
+    <div class="card">지원 건수: 320</div>
+  </div>
+
+  <div class="domain-detail">
+    <div class="domain-info">
+      <div>
+        <strong>최근 등록된 도메인</strong><br>
+        example-job.co.kr
+      </div>
+      <div>
+        <button>상세보기</button>
+        <button>삭제</button>
+      </div>
+    </div>
+
+    <div class="data-charts">
+      <div>
+        <h3>지원자 수 추이</h3>
+        <p>[차트 자리]</p>
+      </div>
+      <div>
+        <h3>공고 클릭 수</h3>
+        <p>[차트 자리]</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="domain-overview">
+    <h3>채용공고 목록</h3>
+    <button>공고 등록</button>
+    <table>
+      <thead>
+        <tr>
+          <th>공고명</th>
+          <th>등록일</th>
+          <th>마감일</th>
+          <th>지원자 수</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>프론트엔드 개발자</td>
+          <td>2025-04-29</td>
+          <td>2025-05-15</td>
+          <td>23</td>
+          <td><button>보기</button></td>
+        </tr>
+        <tr>
+          <td>백엔드 개발자</td>
+          <td>2025-04-28</td>
+          <td>2025-05-10</td>
+          <td>18</td>
+          <td><button>보기</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination">1 / 3 페이지</div>
+  </div>
+{% endblock %}

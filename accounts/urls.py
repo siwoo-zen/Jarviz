@@ -1,7 +1,8 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView
-from .views import CustomLoginView, RegisterView, activate_user
+from .views import CustomLoginView, RegisterView, activate_user, EmployerLoginView
 from django.views.generic import TemplateView
+from .views import EmployerRegisterView
 
 
 urlpatterns = [
@@ -11,4 +12,6 @@ urlpatterns = [
     path('register/complete/', TemplateView.as_view(
         template_name='accounts/registration_pending.html'
     ), name='registration_pending'),
+    path('employer/login/', EmployerLoginView.as_view(), name='employer_login'),
+    path('employer/register/', EmployerRegisterView.as_view(), name='employer_register'),
 ]

@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('workhub.urls')),  # ✅ 기본 경로에 workhub 연결
+    path('accounts/', include('accounts.urls')),
 ]
 
 # static + media 설정 추가 (이미 설정했다면 생략)

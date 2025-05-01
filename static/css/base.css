@@ -1,0 +1,195 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f5f6fa;
+  color: #333;
+}
+
+/* 사이드바 */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  box-sizing: border-box;
+  transition: width 0.3s ease;
+  z-index: 1001;
+}
+.sidebar.collapsed {
+  width: 70px;
+}
+.sidebar-header hr {
+  margin: -5px 0 15px 0;
+  border: none;
+  height: 1px;
+  background-color: #ccc;
+  width: 100%;
+}
+.sidebar-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+.sidebar-logo img {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  border-radius: 6px;
+}
+.sidebar h2 {
+  font-size: 25px;
+  margin: 0;
+}
+.sidebar-toggle {
+  font-size: 32px;
+  cursor: pointer;
+  color: #999;
+}
+
+/* 접힘 상태에서 요소 숨김 */
+.sidebar.collapsed h2,
+.sidebar.collapsed .dropdown-toggle,
+.sidebar.collapsed .submenu,
+.sidebar.collapsed li.single-item {
+  display: none;
+}
+
+/* 메뉴 */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+}
+.sidebar li.single-item {
+  font-size: 12px;
+}
+.single-item:hover {
+  color: rgb(230, 127, 10);
+  font-weight: bold;
+}
+.submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  font-size: 14px;
+  margin-left: 10px;
+}
+.submenu.show {
+  max-height: 500px;
+}
+.submenu li:hover {
+  color: rgb(230, 127, 10);
+  font-weight: bold;
+}
+.dropdown-toggle:hover,
+.dropdown-toggle.open {
+  font-weight: bold;
+}
+.sidebar-footer {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+/* GNB */
+.gnb {
+  position: fixed;
+  top: 0;
+  left: 240px;
+  right: 0;
+  height: 60px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+.gnb.collapsed {
+  left: 60px;
+}
+
+.gnb .search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 400px;
+}
+.gnb .search-box input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.gnb .search-btn {
+  padding: 8px 16px;
+  background-color: black;
+  color: rgb(230, 127, 10);
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.gnb .search-btn:hover {
+  background-color: rgb(230, 127, 10);
+  color: black;
+}
+.gnb .user-menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.gnb-login-btn {
+  padding: 8px 20px;
+  background-color: black;
+  color: rgb(230, 127, 10);
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.gnb-login-btn:hover {
+  background-color: rgb(230, 127, 10);
+  color: black;
+}
+/* 메인 */
+.main {
+  margin-left: 240px;
+  margin-top: 60px;
+  transition: margin-left 0.3s ease;
+  padding: 30px;
+}
+.main.collapsed {
+  margin-left: 60px;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+footer {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  margin-top: 60px;
+}

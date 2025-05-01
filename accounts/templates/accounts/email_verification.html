@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>이메일 인증</title>
+  <style>
+    body {
+      background-color: #f5f6fa;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      padding: 40px;
+    }
+
+    .email-box {
+      max-width: 600px;
+      margin: auto;
+      background-color: #fff;
+      border: 2px solid rgb(230, 127, 10);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .email-box h2 {
+      color: black;
+    }
+
+    .verify-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background-color: black;
+      color: rgb(230, 127, 10);
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .verify-button:hover {
+      background-color: rgb(230, 127, 10);
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="email-box">
+    <h2>🎉 이메일 인증 요청</h2>
+    <p>{{ user.username }}님, 회원가입을 완료하려면 아래 버튼을 클릭해주세요.</p>
+    <a href="{{ verification_link }}" class="verify-button">이메일 인증하기</a>
+    <p style="margin-top: 20px; font-size: 12px;">버튼이 작동하지 않으면 아래 링크를 복사해 브라우저에 붙여넣어주세요.</p>
+    <p style="font-size: 12px;">{{ verification_link }}</p>
+  </div>
+</body>
+</html>

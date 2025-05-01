@@ -1,85 +1,152 @@
 /* 전체 배경색과 중앙 정렬 */
 body {
-    margin: 0;
-    background-color: #f5f6fa; /* ✅ base.html과 통일 */
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  /* 로그인 박스 */
-  .login-box {
-    background: white;
-    border: 2px solid rgb(230, 127, 10); /* ✅ 주황색 테두리 */
-    border-radius: 12px;
-    padding: 40px 30px;
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.05);
-    text-align: center;
-  }
-  
-  /* 로그인 버튼 */
-  .login-btn {
-    background-color: black;
-    color: rgb(230, 127, 10);
-    border: none;
-    padding: 10px 20px;
-    margin-top: 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
-  }
-  
-  .login-btn:hover {
-    background-color: rgb(230, 127, 10);
-    color: black;
-  }
-  
-  /* 하단 안내 문구 */
-  .signup-guide {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  /* join us 버튼 */
-  .join-btn {
-    margin-top: 10px;
-    background-color: black;
-    color: rgb(230, 127, 10);
-    padding: 10px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-    font-weight: bold;
-  }
-  
-  .join-btn:hover {
-    background-color: rgb(230, 127, 10);
-    color: black;
-  }
-  
-  .form-group {
-    text-align: left;
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 6px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
+  margin: 0;
+  background-color: #f5f6fa;
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;         /* ✅ height → min-height */
+  display: block;            /* ✅ 중앙정렬 제거 */
+}
+
+/* 로그인 wrapper (전환용) */
+.login-wrapper {
+  min-height: 100vh;         /* ✅ 전체 높이 확보 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* 로그인 박스 공통 */
+.login-box {
+  background: white;
+  border: 2px solid rgb(230, 127, 10);
+  border-radius: 12px;
+  padding: 40px 30px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.05);
+  text-align: center;
+  display: none;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.login-box.active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  position: relative;
+  z-index: 1;
+}
+
+.register-box {
+  display: block;
+  opacity: 1;
+  transform: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* 로그인 버튼 */
+.login-btn {
+  background-color: rgb(230, 127, 10);
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+.login-btn:hover {
+  background-color: black;
+  color: rgb(230, 127, 10);
+}
+
+/* 하단 안내 문구 */
+.signup-guide {
+  margin-top: 30px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* join us 버튼 */
+.join-btn {
+  margin-top: 10px;
+  background-color: black;
+  color: rgb(230, 127, 10);
+  padding: 10px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+}
+
+.join-btn:hover {
+  background-color: rgb(230, 127, 10);
+  color: black;
+}
+
+/* 입력 그룹 */
+.form-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #555;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 구분선 */
+.divider-with-label {
+  display: flex;
+  align-items: center;
+  margin: 40px 0 15px;
+  gap: 10px;
+}
+
+.divider-with-label .line {
+  flex: 1;
+  height: 1px;
+  background-color: #aaa;
+  border: none;
+}
+
+.divider-label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+}
+
+.box-label {
+  padding: 6px 12px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background-color: white;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}

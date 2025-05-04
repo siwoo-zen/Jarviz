@@ -1,0 +1,211 @@
+.resume-container {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    max-width: 800px;
+    margin: 40px auto;
+  }
+  
+  .resume-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid rgb(230, 127, 10);
+    padding-bottom: 10px;
+  }
+  
+  .resume-group {
+    margin-bottom: 20px;
+  }
+  
+  .resume-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  
+  .resume-group input,
+  .resume-group textarea,
+  .resume-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+  }
+  
+  .resume-group textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  .resume-errors {
+    color: red;
+    margin-bottom: 20px;
+  }
+  
+  .resume-btn {
+    background-color: rgb(230, 127, 10);
+    color: black;
+    font-weight: bold;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .resume-btn:hover {
+    background-color: black;
+    color: rgb(230, 127, 10);
+  }
+  
+  .resume-checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .resume-checkbox-group label {
+    display: flex;
+    flex-direction: row;    
+    align-items: center;    
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    font-size: 14px;
+  }
+  
+  .resume-checkbox-group input[type="checkbox"] {
+    accent-color: rgb(230, 127, 10);
+  }
+  .resume-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .resume-list-item-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .resume-title-link {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222;
+    text-decoration: none;
+  }
+  
+  .resume-title-link:hover {
+    color: rgb(230, 127, 10);
+  }
+  
+  .resume-edit-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #e67e0a; 
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resume-edit-btn:hover {
+    background-color: #cc6d09;
+  }
+  
+  .resume-date {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 4px;
+    letter-spacing: -0.3px;
+  }
+  
+
+  .resume-detail-edit-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #e67e0a;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resume-detail-edit-btn:hover {
+    background-color: #cc6e08;
+  }
+  
+  .resume-detail-back-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: white;
+    color: #e67e0a;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #e67e0a;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-left: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .resume-detail-back-btn:hover {
+    background-color: #f5f5f5;
+    color: #cc6e08;
+    border-color: #cc6e08;
+  }
+  
+  .resume-edit-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .resume-detail-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #e67e0a;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resume-detail-btn:hover {
+    background-color: #cf6e00;
+  }
+  
+  .resume-detail-btn.outline {
+    background-color: white;
+    color: #e67e0a;
+    border: 2px solid #e67e0a;
+  }
+  
+  .resume-detail-btn.outline:hover {
+    background-color: #f9f9f9;
+  }
+  
+
+  

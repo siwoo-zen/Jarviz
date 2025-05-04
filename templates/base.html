@@ -6,7 +6,7 @@
   <title>{% block title %}Jarviz{% endblock %}</title>
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
-<body>
+<body class="{% if user.is_authenticated and user.is_staff %}is-employer{% endif %}">
   <!-- ✅ 고정 사이드바 -->
   <div class="sidebar">
     <div class="sidebar-header">
@@ -31,7 +31,16 @@
         <li class="dropdown">
           <div class="dropdown-toggle">이력서 관리</div>
           <ul class="submenu">
-            <li>이력서 작성</li>
+            <li class="single-item">
+              <form action="{% url 'workhub:resume_create'%}" method="get">
+                <button type="submit" class="sidebar-btn">이력서 작성</button>
+              </form>
+            </li>
+            <li class="single-item">
+              <form action="{% url 'workhub:resume_list'%}" method="get">
+                <button type="submit" class="sidebar-btn">이력서 목록</button>
+              </form>
+            </li>
             <li>AI 분석 피드백 보기</li>
             <li>포트폴리오 등록</li>
             <li>공개/비공개 설정</li>
@@ -63,12 +72,23 @@
       <input type="text" placeholder="검색어 입력...">
       <button type="submit" class="search-btn">검색</button>
     </div>
+  
     <div class="user-menu">
-      <span>알림</span>
-      <span>마이페이지</span>
-      <button type="button" class="gnb-login-btn" onclick="location.href='/accounts/login/'">로그인</button>
+      <button class="bell-button">
+        <svg viewBox="0 0 448 512" class="bell"><path d="M224 0c-17.7 0-32 14.3-32 32V49.9C119.5 61.4 64 124.2 64 200v33.4c0 45.4-15.5 89.5-43.8 124.9L5.3 377c-5.8 7.2-6.9 17.1-2.9 25.4S14.8 416 24 416H424c9.2 0 17.6-5.3 21.6-13.6s2.9-18.2-2.9-25.4l-14.9-18.6C399.5 322.9 384 278.8 384 233.4V200c0-75.8-55.5-138.6-128-150.1V32c0-17.7-14.3-32-32-32zm0 96h8c57.4 0 104 46.6 104 104v33.4c0 47.9 13.9 94.6 39.7 134.6H72.3C98.1 328 112 281.3 112 233.4V200c0-57.4 46.6-104 104-104h8zm64 352H224 160c0 17 6.7 33.3 18.7 45.3s28.3 18.7 45.3 18.7s33.3-6.7 45.3-18.7s18.7-28.3 18.7-45.3z"></path></svg>
+      </button>
+      {% if user.is_authenticated %}
+        <span>{{ user.username }}님</span>
+        <form method="post" action="{% url 'accounts:logout' %}" style="display:inline;">
+          {% csrf_token %}
+          <button class="gnb-login-btn" onclick="location.href='{% url 'accounts:logout' %}'">로그아웃</button>
+        </form>
+      {% else %}
+        <button type="button" class="gnb-login-btn" onclick="location.href='{% url 'accounts:login' %}'">로그인</button>
+      {% endif %}
     </div>
   </div>
+  
 
   <!-- ✅ 메인 -->
   <main class="main">
@@ -104,5 +124,6 @@
       });
     });
   </script>
+  {% block extra_script %}{% endblock %}
 </body>
 </html>

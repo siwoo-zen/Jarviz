@@ -100,3 +100,15 @@
     color: #777;
   }
   
+  body.is-employer {
+    background-color: #f5f0ff; /* 기업 사용자용 연보라 배경 */
+  }
+  
+  body.is-employer h1 {
+    color: #4b0082; /* 기업 사용자용 텍스트 컬러 */
+  }
+  
+  body.is-employer .card {
+    border: 2px solid #4b0082;
+    background-color: #faf7ff;
+  }

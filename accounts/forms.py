@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserAccount, EmployerAccount
+from .models import UserAccount
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -14,7 +14,7 @@ class CustomEmployerCreationForm(forms.ModelForm):
     password2 = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
-        model = EmployerAccount
+        model = UserAccount
         fields = [
             'username', 'email', 'password1', 'password2',
             'company_name', 'contact_person', 'phone_number', 'company_website',
@@ -31,6 +31,7 @@ class CustomEmployerCreationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.set_password(self.cleaned_data["password1"])
+        user.is_company = True
         if commit:
             user.save()
         return user

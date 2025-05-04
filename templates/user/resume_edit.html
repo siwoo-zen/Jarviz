@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}이력서 수정{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">이력서 수정</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <div class="resume-errors">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="resume-group">
+      <label for="{{ form.title.id_for_label }}">제목</label>
+      {{ form.title }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.content.id_for_label }}">내용</label>
+      {{ form.content }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.uploaded_file.id_for_label }}">파일 첨부</label>
+      {{ form.uploaded_file }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.category.id_for_label }}">직무 카테고리</label>
+      {{ form.category }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.tech_stack.id_for_label }}">사용 기술</label>
+      <div class="resume-checkbox-group">
+        {% for checkbox in form.tech_stack %}
+          <label>
+            {{ checkbox.tag }}
+            {{ checkbox.choice_label }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="resume-edit-actions">
+      <button type="submit" class="resume-detail-btn">수정 완료</button>
+      <button type="button" class="resume-detail-btn outline" id="resume-cancel-btn">목록으로</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+{% block extra_script %}
+<script>
+  let isDirty = false;
+
+  document.querySelectorAll('form input, form textarea, form select').forEach(el => {
+    el.addEventListener('input', () => {
+      isDirty = true;
+    });
+  });
+
+  document.getElementById('resume-cancel-btn').addEventListener('click', function() {
+    if (isDirty) {
+      const confirmLeave = confirm("수정된 내용이 있습니다. 저장하지 않고 나가시겠습니까?");
+      if (!confirmLeave) return;
+    }
+    window.location.href = "{% url 'workhub:resume_list' %}";
+  });
+
+  {% if messages %}
+    {% for message in messages %}
+      alert("{{ message }}");
+    {% endfor %}
+  {% endif %}
+</script>
+{% endblock %}

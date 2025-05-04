@@ -1,4 +1,6 @@
-#!/Users/gimsiu/Downloads/Django_web_M/env/bin/python3
+#!/bin/sh
+'''exec' "/Users/gimsiu/Jarviz 복사본/env/bin/python3" "$0" "$@"
+' '''
 # -*- coding: utf-8 -*-
 import re
 import sys

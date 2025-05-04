@@ -10,7 +10,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from .forms import CustomUserCreationForm, CustomEmployerCreationForm
-from .models import EmployerAccount
+from .models import UserAccount
+
 
 class CustomLoginView(LoginView):
     template_name = 'accounts/login.html'
@@ -18,7 +19,7 @@ class CustomLoginView(LoginView):
 class RegisterView(CreateView):
     form_class = CustomUserCreationForm
     template_name = 'accounts/register.html'
-    success_url = reverse_lazy('registration_pending')
+    success_url = reverse_lazy('accounts:registration_pending')
     context_object_name = 'form'
 
     def form_valid(self, form):
@@ -58,10 +59,9 @@ def activate_user(request, uidb64, token):
 class EmployerLoginView(LoginView):
     template_name = 'accounts/employer_login.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_employer'] = True
-        return context
+    def get_success_url(self):
+        return reverse_lazy('workhub:home') 
+
 
 class EmployerRegisterView(View):
     def get(self, request):
@@ -71,6 +71,9 @@ class EmployerRegisterView(View):
     def post(self, request):
         form = CustomEmployerCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('accounts/activation_scuccess.html')
+            employer = form.save(commit=False)   # DB에 저장하지 않고 객체만 만듦
+            employer.is_staff = True             # ✅ 기업 계정 표시
+            employer.save()                      # 이제 저장
+            return render(request, 'accounts/activation_success.html')
         return render(request, 'accounts/employer_register.html', {'form': form})
+

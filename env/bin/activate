@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Users/gimsiu/Downloads/Django_web_M/env"
+VIRTUAL_ENV="/Users/gimsiu/Jarviz 복사본/env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

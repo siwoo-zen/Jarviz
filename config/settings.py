@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'workhub',
     'accounts',
+    'employer',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +147,7 @@ EMAIL_HOST_PASSWORD = 'bmlkucwuntnivhlf'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  # ✅ 일반 사용자 로그인
+]

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}이력서 목록{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">내 이력서 목록</h2>
+
+  {% if resumes %}
+    <ul class="resume-list">
+      {% for resume in resumes %}
+        <li class="resume-list-item-line">
+          <div class="resume-list-left">
+            <a href="{% url 'workhub:resume_detail' resume.pk %}" class="resume-title-link">{{ resume.title }}</a>
+            <span class="resume-date">{{ resume.created_at|date:"Y년 m월 d일 H:i" }}</span>
+          </div>
+          <button class="resume-edit-btn" onclick="window.location.href='{% url 'workhub:resume_edit' resume.pk %}'">수정하기</button>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>등록한 이력서가 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

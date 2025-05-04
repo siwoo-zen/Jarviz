@@ -9,7 +9,7 @@
 <div class="container">
   <h1>환영합니다, {{ user.username }}님!</h1>
 
-  {% if user.is_staff %}
+  {% if user.is_company %}
   <!-- ✅ 기업 사용자용 대시보드 -->
   <div class="dashboard-summary">
     <div class="card">📢 등록한 공고 수: 8</div>
@@ -30,7 +30,7 @@
 
   <div class="domain-overview">
     <h3>채용공고 관리</h3>
-    <button>공고 등록</button>
+    <span class="resume-btn disabled">공고 등록 (준비중)</span>
     <table>
       <thead>
         <tr>
@@ -56,7 +56,21 @@
   {% else %}
   <!-- ✅ 지원자용 대시보드 -->
   <div class="dashboard-summary">
-    <div class="card">📄 내 이력서 상태: 작성 완료</div>
+    <div class="card">
+      {% if user.is_authenticated %}
+        {% if resume %}
+          <h3>내 이력서</h3>
+          <p>{{ resume.title }}</p>
+          <a href="{% url 'workhub:resume_edit' resume.id %}" class="login-btn">수정하기</a>
+        {% else %}
+          <h3>이력서 작성</h3>
+          <p>아직 등록된 이력서가 없습니다.</p>
+          <a href="{% url 'workhub:resume_create' %}" class="login-btn">이력서 작성하기</a>
+        {% endif %}
+      {% else %}
+        <p><a href="{% url 'accounts:login' %}">로그인</a> 후 이력서를 작성하세요.</p>
+      {% endif %}
+    </div>       
     <div class="card">🔍 추천 공고 수: 4건</div>
     <div class="card">📝 최근 지원 내역: 2건</div>
   </div>

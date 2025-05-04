@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}이력서 작성{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">이력서 작성</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    {% if form.errors %}   <!--오류 덩어리로 출력 안됨 이쁘게 나오게-->
+        <div class="resume-errors">
+        <ul>
+            {% for field in form %}
+            {% for error in field.errors %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+            {% endfor %}
+        </ul>
+        </div>
+    {% endif %}
+
+    <div class="resume-group">
+      <label for="{{ form.title.id_for_label }}">제목</label>
+      {{ form.title }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.content.id_for_label }}">내용</label>
+      {{ form.content }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.uploaded_file.id_for_label }}">파일 첨부</label>
+      {{ form.uploaded_file }}
+    </div>
+
+    <div class="resume-group">
+      <label for="{{ form.category.id_for_label }}">직무 카테고리</label>
+      {{ form.category }}
+    </div>
+
+    <div class="resume-group">
+      <label>사용 기술</label>
+      <div class="resume-checkbox-group">
+        {% for checkbox in form.tech_stack %}
+          <label>
+            {{ checkbox.tag }}
+            {{ checkbox.choice_label }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" class="resume-btn">이력서 저장</button>
+  </form>
+</div>
+{% endblock %}

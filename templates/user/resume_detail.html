@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}이력서 상세보기{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">{{ resume.title }}</h2>
+  <p class="resume-meta">
+    작성일: {{ resume.created_at|date:"Y년 m월 d일 H:i" }} / 분야: {{ resume.get_category_display }}
+  </p>
+
+  <div class="resume-group">
+    <h3>내용</h3>
+    <p>{{ resume.content|linebreaks }}</p>
+  </div>
+
+  {% if resume.uploaded_file %}
+    <div class="resume-group">
+      <h3>첨부파일</h3>
+      <a href="{{ resume.uploaded_file.url }}" target="_blank">파일 다운로드</a>
+    </div>
+  {% endif %}
+
+  <div class="resume-group">
+    <h3>사용 기술</h3>
+    <ul class="resume-tech-list">
+      {% for stack in resume.tech_stack.all %}
+        <li>{{ stack.name }}</li>
+      {% empty %}
+        <li>선택된 기술이 없습니다.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="resume-list-actions">
+    <button class="resume-detail-btn" onclick="location.href='{% url 'workhub:resume_edit' resume.pk %}'">수정하기</button>
+    <button class="resume-detail-btn outline" onclick="location.href='{% url 'workhub:resume_edit' resume.pk %}'">목록으로</button>
+  </div>  
+</div>
+{% endblock %}

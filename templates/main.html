@@ -12,9 +12,16 @@
   {% if user.is_company %}
   <!-- ✅ 기업 사용자용 대시보드 -->
   <div class="dashboard-summary">
-    <div class="card">📢 등록한 공고 수: 8</div>
-    <div class="card">👥 전체 지원자 수: 145</div>
-    <div class="card">📈 공고 조회수: 487</div>
+    {% if job_posts %}
+      <div class="card">📢 등록한 공고 수: {{ job_posts|length }}</div>
+      <div class="card">👥 전체 지원자 수: 145</div>
+      <div class="card">📈 공고 조회수: 487</div>
+    {% else %}
+      <div class="card" style="flex: 1; text-align: center;">
+        <p>등록한 공고가 없습니다.</p>
+        <button class="resume-btn" onclick="location.href='{% url 'workhub:job_create' %}'">공고 등록하기</button>
+      </div>
+    {% endif %}
   </div>
 
   <div class="data-charts">
@@ -61,11 +68,11 @@
         {% if resume %}
           <h3>내 이력서</h3>
           <p>{{ resume.title }}</p>
-          <a href="{% url 'workhub:resume_edit' resume.id %}" class="login-btn">수정하기</a>
+          <a href="{% url 'workhub:resume_edit' resume.id %}" class="resume-detail-btn">수정하기</a>
         {% else %}
           <h3>이력서 작성</h3>
           <p>아직 등록된 이력서가 없습니다.</p>
-          <a href="{% url 'workhub:resume_create' %}" class="login-btn">이력서 작성하기</a>
+          <a href="{% url 'workhub:resume_create' %}" class="resume-detail-btn">이력서 작성하기</a>
         {% endif %}
       {% else %}
         <p><a href="{% url 'accounts:login' %}">로그인</a> 후 이력서를 작성하세요.</p>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Resume, TechStack
+from .models import Resume, TechStack, JobPost
 
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
@@ -12,3 +12,9 @@ class ResumeAdmin(admin.ModelAdmin):
 class TechStackAdmin(admin.ModelAdmin):
     list_display = ('name',)
     search_fields = ('name',)
+
+@admin.register(JobPost)
+class JobPostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'employer', 'category', 'location', 'deadline', 'created_at')
+    list_filter = ('category', 'location', 'deadline')
+    search_fields = ('title', 'description', 'employer__username')

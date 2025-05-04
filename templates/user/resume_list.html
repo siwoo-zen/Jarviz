@@ -9,6 +9,14 @@
 <div class="resume-container">
   <h2 class="resume-title">내 이력서 목록</h2>
 
+  {% if messages %}
+  <script>
+    {% for message in messages %}
+      alert("{{ message|escapejs }}");
+    {% endfor %}
+  </script>
+  {% endif %}
+
   {% if resumes %}
     <ul class="resume-list">
       {% for resume in resumes %}

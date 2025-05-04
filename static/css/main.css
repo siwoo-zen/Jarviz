@@ -101,14 +101,32 @@
   }
   
   body.is-employer {
-    background-color: #f5f0ff; /* 기업 사용자용 연보라 배경 */
+    background-color: #f8f4ec;
   }
   
   body.is-employer h1 {
-    color: #4b0082; /* 기업 사용자용 텍스트 컬러 */
+    color: #9b4d0d; /* 기업 사용자용 텍스트 컬러 */
   }
   
   body.is-employer .card {
-    border: 2px solid #4b0082;
-    background-color: #faf7ff;
+    border: 2px solid #8f460b;
+    background-color: #f8f4ec;
+  }
+
+  .resume-detail-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #e67e0a;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resume-detail-btn:hover {
+    background-color: #cf6e00;
   }

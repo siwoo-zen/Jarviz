@@ -4,14 +4,15 @@
 {% block title %}채용공고 등록{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
 
-<div class="resume-container">
-  <h2 class="resume-title">채용공고 등록</h2>
+<div class="job-container">
+  <h2 class="job-title">채용공고 등록</h2>
   <form method="post">
     {% csrf_token %}
+
     {% if form.errors %}
-      <div class="resume-errors">
+      <div class="job-errors">
         <ul>
           {% for field in form %}
             {% for error in field.errors %}
@@ -22,32 +23,37 @@
       </div>
     {% endif %}
 
-    <div class="resume-group">
+    <div class="job-group">
       <label for="{{ form.title.id_for_label }}">공고 제목</label>
       {{ form.title }}
     </div>
 
-    <div class="resume-group">
+    <div class="job-group">
       <label for="{{ form.description.id_for_label }}">상세 내용</label>
       {{ form.description }}
     </div>
 
-    <div class="resume-group">
-      <label for="{{ form.category.id_for_label }}">직무 분야</label>
+    <div class="job-group">
+      <label for="{{ form.category.id_for_label }}">카테고리</label>
       {{ form.category }}
     </div>
 
-    <div class="resume-group">
-      <label for="{{ form.location.id_for_label }}">근무 지역</label>
+    <div class="job-group">
+      <label for="{{ form.location.id_for_label }}">근무지</label>
       {{ form.location }}
     </div>
 
-    <div class="resume-group">
+    <div class="job-group">
+      <label for="{{ form.salary.id_for_label }}">급여</label>
+      {{ form.salary }}
+    </div>
+
+    <div class="job-group">
       <label for="{{ form.deadline.id_for_label }}">마감일</label>
       {{ form.deadline }}
     </div>
 
-    <button type="submit" class="resume-btn">등록하기</button>
+    <button type="submit" class="job-btn">공고 등록</button>
   </form>
 </div>
 {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}채용공고 목록{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <h2 class="job-title">내 채용공고 목록</h2>
+
+  {% if messages %}
+  <script>
+    {% for message in messages %}
+      alert("{{ message|escapejs }}");
+    {% endfor %}
+  </script>
+  {% endif %}
+
+  {% if job_posts %}
+    <ul class="job-list">
+      {% for job in job_posts %}
+        <li class="job-list-item-line">
+          <div class="job-list-left">
+            <a href="{% url 'workhub:job_detail' job.pk %}" class="job-title-link">{{ job.title }}</a>
+            <span class="job-date">마감: {{ job.deadline|date:"Y년 m월 d일" }}</span>
+          </div>
+          <button class="job-edit-btn" onclick="window.location.href='{% url 'workhub:job_edit' job.pk %}'">수정하기</button>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>등록한 채용공고가 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

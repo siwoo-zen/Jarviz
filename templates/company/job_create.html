@@ -34,7 +34,7 @@
     </div>
 
     <div class="job-group">
-      <label for="{{ form.category.id_for_label }}">카테고리</label>
+      <label for="{{ form.category.id_for_label }}">직무 카테고리</label>
       {{ form.category }}
     </div>
 
@@ -49,8 +49,20 @@
     </div>
 
     <div class="job-group">
-      <label for="{{ form.deadline.id_for_label }}">마감일</label>
+      <label for="{{ form.deadline.id_for_label }}">모집 마감일</label>
       {{ form.deadline }}
+    </div>
+
+    <div class="job-group">
+      <label>모집 기술 스택</label>
+      <div class="job-checkbox-group">
+        {% for checkbox in form.tech_stack %}
+          <label>
+            {{ checkbox.tag }}
+            {{ checkbox.choice_label }}
+          </label>
+        {% endfor %}
+      </div>
     </div>
 
     <button type="submit" class="job-btn">공고 등록</button>

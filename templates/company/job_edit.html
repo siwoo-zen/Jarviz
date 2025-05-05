@@ -1,1 +1,100 @@
-›
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}채용공고 수정{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <h2 class="job-title">채용공고 수정</h2>
+  <form method="post">
+    {% csrf_token %}
+
+    {% if form.errors %}
+      <div class="job-errors">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <div class="job-group">
+      <label for="{{ form.title.id_for_label }}">공고 제목</label>
+      {{ form.title }}
+    </div>
+
+    <div class="job-group">
+      <label for="{{ form.description.id_for_label }}">공고 설명</label>
+      {{ form.description }}
+    </div>
+
+    <div class="job-group">
+      <label for="{{ form.category.id_for_label }}">직무 카테고리</label>
+      {{ form.category }}
+    </div>
+
+    <div class="job-group">
+      <label for="{{ form.location.id_for_label }}">근무 지역</label>
+      {{ form.location }}
+    </div>
+
+    <div class="job-group">
+      <label for="{{ form.salary.id_for_label }}">급여</label>
+      {{ form.salary }}
+    </div>
+
+    <div class="job-group">
+      <label for="{{ form.deadline.id_for_label }}">마감일</label>
+      {{ form.deadline }}
+    </div>
+
+    <div class="job-group">
+      <label>모집 기술 스택</label>
+      <div class="job-checkbox-group">
+        {% for checkbox in form.tech_stack %}
+          <label>
+            {{ checkbox.tag }}
+            {{ checkbox.choice_label }}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="job-edit-actions">
+      <button type="submit" class="job-detail-btn">수정 완료</button>
+      <button type="button" class="job-detail-btn outline" id="job-cancel-btn">목록으로</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+<script>
+  let isDirty = false;
+
+  document.querySelectorAll('form input, form textarea, form select').forEach(el => {
+    el.addEventListener('input', () => {
+      isDirty = true;
+    });
+  });
+
+  document.getElementById('job-cancel-btn').addEventListener('click', function() {
+    if (isDirty) {
+      const confirmLeave = confirm("수정된 내용이 있습니다. 저장하지 않고 나가시겠습니까?");
+      if (!confirmLeave) return;
+    }
+    window.location.href = "{% url 'workhub:job_list' %}";
+  });
+
+  {% if messages %}
+    {% for message in messages %}
+      alert("{{ message }}");
+    {% endfor %}
+  {% endif %}
+</script>
+{% endblock %}

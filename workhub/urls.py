@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView, JobPostDetailView, MyApplicationsView
+from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView, JobPostDetailView, MyApplicationsView, RecommendedResumeListView
 from .views import JobPostCreateView, JobPostUpdateView, JobPostListView, ApplyJobView, PublicJobListView, PublicJobDetailView, ToggleScrapView
 from workhub.views import main_dashboard
 
@@ -29,4 +29,8 @@ urlpatterns = [
     path('job/<int:pk>/apply/', ApplyJobView.as_view(), name='apply_job'),
     path('job/<int:pk>/toggle-scrap/', ToggleScrapView.as_view(), name='toggle_scrap'),
     path('applications/', MyApplicationsView.as_view(), name='my_applications'),
+
+    #기업 기능
+    path('jobs/<int:pk>/recommended/', RecommendedResumeListView.as_view(), name='recommended_resumes'),
+
 ]

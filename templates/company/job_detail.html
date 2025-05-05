@@ -49,6 +49,7 @@
   <div class="job-actions">
     <button class="job-detail-btn" onclick="location.href='{% url 'workhub:job_edit' job.pk %}'">수정하기</button>
     <button class="job-detail-btn outline" onclick="location.href='{% url 'workhub:job_list' %}'">목록으로</button>
+    <button class="job-detail-btn" onclick="location.href='{% url 'workhub:recommended_resumes' job.pk %}'">추천 인재</button>
   </div>
 </div>
 {% endblock %}

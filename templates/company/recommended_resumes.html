@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}추천 이력서 목록{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <h2 class="job-title">최근 올린 공고에 적합한 인재 소개해 드릴께요!</h2>
+
+  {% if recommended_resumes %}
+    <ul class="job-list">
+      {% for resume in recommended_resumes %}
+        <li class="job-list-item-line">
+          <div class="job-list-left">
+            <a href="{% url 'workhub:resume_detail' resume.pk %}" class="job-title-link">
+              {{ resume.title }}
+            </a>
+            <span class="job-date">
+              등록일: {{ resume.created_at|date:"Y년 m월 d일" }}
+            </span>
+            <div style="font-size: 14px; color: #666; margin-top: 4px;">
+              분야: {{ resume.get_category_display }} /
+              기술스택:
+              {% for tech in resume.tech_stack.all %}
+                {{ tech.name }}{% if not forloop.last %}, {% endif %}
+              {% empty %}
+                없음
+              {% endfor %}
+            </div>
+          </div>
+          <a href="{% url 'workhub:resume_detail' resume.pk %}" class="job-edit-btn">
+            상세보기
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>추천할 수 있는 이력서가 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

@@ -103,7 +103,7 @@
   }
   
   body.is-employer {
-    background-color: #eeecf8;
+    background-color: #f8f7fd;
   }
   
   body.is-employer h1 {
@@ -112,7 +112,7 @@
   
   body.is-employer .card {
     border: 2px solid #1F3C88;
-    background-color: #eeecf8;
+    background-color: #f8f7fd;
     flex: 1 1 calc(33.333% - 20px);
     min-width: 200px;
     max-width: 320px;

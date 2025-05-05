@@ -59,3 +59,51 @@ class JobPost(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+# 이력서 지원
+class Application(models.Model):
+    STATUS_CHOICES = [
+        ('pending', '대기중'),
+        ('reviewed', '검토중'),
+        ('accepted', '합격'),
+        ('rejected', '불합격'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='applications'
+    )
+    resume = models.ForeignKey(
+        Resume,
+        on_delete=models.CASCADE,
+        related_name='applications'
+    )
+    job = models.ForeignKey(
+        JobPost,
+        on_delete=models.CASCADE,
+        related_name='applications'
+    )
+
+    cover_letter = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    applied_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('resume', 'job')
+        ordering = ['-applied_at']
+
+    def __str__(self):
+        return f"{self.user.username} → {self.job.title} ({self.get_status_display()})"
+
+class JobScrap(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'job')  # 중복 저장 방지
+
+    def __str__(self):
+        return f"{self.user.username} → {self.job.title}"
+    

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}지원 내역{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">내 지원 내역</h2>
+
+  {% if applications %}
+    <ul class="resume-list">
+      {% for app in applications %}
+        <li class="resume-list-item-line">
+          <div class="resume-list-left">
+            <strong>[{{ app.job.get_category_display }}]</strong>
+            <a href="{% url 'workhub:public_job_detail' app.job.pk %}" class="resume-title-link">
+              {{ app.job.title }}
+            </a>
+            <div class="resume-date">지원일: {{ app.applied_at|date:"Y년 m월 d일 H:i" }}</div>
+            <div class="resume-date">이력서: {{ app.resume.title }}</div>
+            <div class="resume-date">상태: {{ app.get_status_display }}</div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>지원한 공고가 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

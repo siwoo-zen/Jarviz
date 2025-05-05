@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}채용공고 목록{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">채용공고 목록</h2>
+
+  {% if job_posts %}
+    <ul class="resume-list">
+        {% for job in job_posts %}
+            <li class="resume-list-item-line job-list-item-enhanced">
+                <!-- 왼쪽: 즐겨찾기 + 제목 + 분야 -->
+                <div class="job-list-col job-title-col">
+                <span class="star-icon {% if job.id in scrapped_jobs %}scrapped{% endif %}"data-job-id="{{ job.id }}">★</span>
+                <a href="{% url 'workhub:public_job_detail' job.pk %}" class="resume-title-link">
+                    [{{ job.get_category_display }}] {{ job.title }}
+                </a>
+                </div>
+        
+                <!-- 가운데: 등록일 -->
+                <div class="job-list-col job-date-col">
+                {{ job.created_at|date:"Y년 m월 d일 H:i" }}
+                </div>
+        
+                <!-- 오른쪽: 상세보기 버튼 -->
+                <div class="job-list-col job-btn-col">
+                <a href="{% url 'workhub:public_job_detail' job.pk %}" class="resume-edit-btn">상세보기</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>  
+  {% else %}
+    <p>등록된 공고가 없습니다.</p>
+  {% endif %}
+</div>
+<script>
+    document.querySelectorAll('.star-icon').forEach(star => {
+      star.addEventListener('click', function () {
+        const jobId = this.dataset.jobId;
+        fetch(`/job/${jobId}/toggle-scrap/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}',
+            'Content-Type': 'application/json'
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          this.classList.toggle('scrapped', data.scrapped);
+        });
+      });
+    });
+</script>
+{% endblock %}

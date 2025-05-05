@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}공고 지원하기{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<div class="resume-container">
+  <h2 class="resume-title">📄 {{ job.title }} - 공고 지원</h2>
+
+  {% if form.fields.resume.queryset.count == 0 %}
+    <div class="resume-errors">
+      <p>⚠️ 아직 등록된 이력서가 없습니다.</p>
+      <a href="{% url 'workhub:resume_create' %}" class="resume-detail-btn">이력서 작성하러 가기</a>
+    </div>
+  {% else %}
+    {% if form.errors %}
+      <div class="resume-errors">
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ field.label }}: {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="resume-group">
+        <label for="id_resume">이력서 선택</label>
+        {{ form.resume }}
+      </div>
+
+      <div class="resume-group">
+        <label for="id_cover_letter">자기소개</label>
+        {{ form.cover_letter }}
+      </div>
+
+      <button type="submit" class="resume-btn">지원하기</button>
+    </form>
+  {% endif %}
+</div>
+{% endblock %}

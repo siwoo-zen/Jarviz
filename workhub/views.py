@@ -11,6 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import F, Sum
 from django.views import View
 from django.http import JsonResponse, HttpResponseBadRequest
+from django.core.exceptions import PermissionDenied
 
 # 메인 대시보드
 def main_dashboard(request):
@@ -223,3 +224,34 @@ class RecommendedResumeListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
 
     def test_func(self):
         return self.request.user.is_authenticated and self.request.user.is_company
+
+class JobApplicantsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = JobPost
+    template_name = 'company/job_applicants.html'
+    context_object_name = 'job'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['applications'] = self.object.applications.select_related('user', 'resume')
+        return context
+
+    def test_func(self):
+        job = self.get_object()
+        return self.request.user == job.employer and self.request.user.is_company
+
+class CompanyViewResumeDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
+    model = Resume
+    template_name = 'company/view_resume_detail.html'
+    context_object_name = 'resume'
+
+    def test_func(self):
+        return self.request.user.is_authenticated and self.request.user.is_company
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        resume = self.get_object()
+
+        # 이력서를 제출한 지원 기록들 (해당 기업 공고에만 필터)
+        applications = resume.applications.filter(job__employer=self.request.user)
+        context['applications'] = applications  # 여기에 여러 JobPost가 연결됨
+        return context

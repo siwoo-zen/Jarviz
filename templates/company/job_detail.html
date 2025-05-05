@@ -11,7 +11,9 @@
     <h2 class="job-title">{{ job.title }}</h2>
     <div class="job-stats">
       <span class="job-views">조회수 {{ job.views }}</span>
-      <button class="job-applicant-btn">지원자 {{ job.applicants }}</button>
+      <button class="job-applicant-btn" onclick="location.href='{% url 'workhub:job_applicants' job.pk %}'">
+        지원자 {{ job.applicants }}
+      </button>
     </div>
   </div>
   <p class="job-meta">

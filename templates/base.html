@@ -22,7 +22,11 @@
         <li class="dropdown">
           <div class="dropdown-toggle">공고 보기</div>
           <ul class="submenu">
-            <li>모든 공고 보기</li>
+            <li>
+              <form action="{% url 'workhub:public_job_list' %}" method="get">
+                <button type="submit" class="sidebar-btn">모든 공고 보기</button>
+              </form>
+            </li>
             <li>내게 맞는 공고 추천</li>
             <li>관심 기업</li>
             <li>지역별 / 직무별 필터</li>
@@ -44,7 +48,11 @@
             <li>AI 분석 피드백 보기</li>
             <li>포트폴리오 등록</li>
             <li>공개/비공개 설정</li>
-            <li>지원 내역</li>
+            <li class="single-item">
+              <form action="{% url 'workhub:my_applications' %}" method="get">
+                <button type="submit" class="sidebar-btn">지원 내역</button>
+              </form>
+            </li>
           </ul>
         </li>
         <li class="dropdown">

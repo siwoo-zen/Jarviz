@@ -11,19 +11,25 @@
 
   {% if user.is_company %}
   <!-- ✅ 기업 사용자용 대시보드 -->
-  <div class="dashboard-summary">
-    {% if job_posts %}
-      <div class="card">📢 등록한 공고 수: {{ job_posts|length }}</div>
-      <div class="card">👥 전체 지원자 수: 145</div>
-      <div class="card">📈 공고 조회수: 487</div>
-    {% else %}
-      <div class="card" style="flex: 1; text-align: center;">
-        <p>등록한 공고가 없습니다.</p>
-        <button class="resume-btn" onclick="location.href='{% url 'workhub:job_create' %}'">공고 등록하기</button>
-      </div>
-    {% endif %}
+  <!-- ✅ 기업 사용자용 대시보드 -->
+<div class="dashboard-summary">
+  {% if job_posts %}
+  <a href="{% url 'workhub:job_list' %}" class="card-link">
+    <div class="card">📢 등록한 공고 수: {{ job_posts|length }}</div>
+  </a>
+  <a href="{% url 'workhub:job_list' %}" class="card-link">
+    <div class="card">👥 전체 지원자 수: {{ applicant_count|default:"-" }}</div>
+  </a>
+  <a href="{% url 'workhub:job_list' %}" class="card-link">
+    <div class="card">📈 공고 조회수: {{ total_views|default:"-" }}</div>
+  </a>
+  {% else %}
+    <div class="card" style="flex: 1; text-align: center;">
+      <p>등록한 공고가 없습니다.</p>
+      <button class="employer-detail-btn" onclick="location.href='{% url 'workhub:job_create' %}'">공고 등록하기</button>
+    </div>
+  {% endif %}
   </div>
-
   <div class="data-charts">
     <div class="card">
       <h3>지원자 수 추이</h3>
@@ -37,28 +43,40 @@
 
   <div class="domain-overview">
     <h3>채용공고 관리</h3>
-    <span class="resume-btn disabled">공고 등록 (준비중)</span>
-    <table>
-      <thead>
-        <tr>
-          <th>공고명</th>
-          <th>등록일</th>
-          <th>마감일</th>
-          <th>지원자 수</th>
-          <th>관리</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>프론트엔드 개발자</td>
-          <td>2025-04-29</td>
-          <td>2025-05-15</td>
-          <td>23</td>
-          <td><button>보기</button></td>
-        </tr>
-      </tbody>
-    </table>
+    {% if job_posts %}
+      <table>
+        <thead>
+          <tr>
+            <th>공고명</th>
+            <th>등록일</th>
+            <th>마감일</th>
+            <th>지원자 수</th>
+            <th>관리</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for job in job_posts %}
+            <tr>
+              <td>
+                <a href="{% url 'workhub:job_detail' job.pk %}" class="job-title-link">
+                  {{ job.title }}
+                </a>
+              </td>
+              <td>{{ job.created_at|date:"Y-m-d" }}</td>
+              <td>{{ job.deadline|date:"Y-m-d" }}</td>
+              <td>-</td>  <!-- 추후 지원자 수 연결 예정 -->
+              <td>
+                <a href="{% url 'workhub:job_edit' job.pk %}" class="job-edit-btn">수정하기</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>등록된 공고가 없습니다.</p>
+    {% endif %}
   </div>
+
 
   {% else %}
   <!-- ✅ 지원자용 대시보드 -->

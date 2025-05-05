@@ -50,6 +50,10 @@ class JobPost(models.Model):
     deadline = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    tech_stack = models.ManyToManyField(TechStack, blank=True)
+    views = models.PositiveIntegerField(default=0)  # 조회수
+    applicants = models.PositiveIntegerField(default=0)  # 지원자 수
+
     def __str__(self):
         return f"{self.title} - {self.employer.username}"
 

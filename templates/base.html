@@ -50,12 +50,20 @@
         <li class="dropdown">
           <div class="dropdown-toggle">기업 서비스</div>
           <ul class="submenu">
-            <li>공고 등록</li>
-            <li>공고 목록 / 수정 / 삭제</li>
+            <li class="single-item">
+              <form action="{% url 'workhub:job_create' %}" method="get">
+                <button type="submit" class="sidebar-btn">공고 등록</button>
+              </form>
+            </li>
+            <li class="single-item">
+              <form action="{% url 'workhub:job_list' %}" method="get">
+                <button type="submit" class="sidebar-btn">공고 목록</button>
+              </form>
+            </li>
             <li>지원자 관리</li>
             <li>채용 결과 등록</li>
           </ul>
-        </li>
+        </li>        
         <li class="single-item">ai 매칭</li>
         <li class="single-item">채용트렌드</li>
         <li class="single-item">공지사항</li>

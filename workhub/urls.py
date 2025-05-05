@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView
+from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView, JobPostDetailView
 from .views import JobPostCreateView, JobPostUpdateView, JobPostListView
 from workhub.views import main_dashboard
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('jobs/create/', JobPostCreateView.as_view(), name='job_create'),
     path('jobs/<int:pk>/edit/', JobPostUpdateView.as_view(), name='job_edit'),
     path('jobs/list/', JobPostListView.as_view(), name='job_list'),
+    path('jobs/<int:pk>/', JobPostDetailView.as_view(), name='job_detail'),
 ]

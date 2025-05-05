@@ -15,9 +15,9 @@
         <div class="resume-errors">
         <ul>
             {% for field in form %}
-            {% for error in field.errors %}
-                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}
+              {% for error in field.errors %}
+                  <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+              {% endfor %}
             {% endfor %}
         </ul>
         </div>

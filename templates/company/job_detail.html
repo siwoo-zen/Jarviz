@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}채용공고 상세보기{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <div class="job-title-row">
+    <h2 class="job-title">{{ job.title }}</h2>
+    <div class="job-stats">
+      <span class="job-views">조회수 {{ job.views }}</span>
+      <button class="job-applicant-btn">지원자 {{ job.applicants }}</button>
+    </div>
+  </div>
+  <p class="job-meta">
+    등록일: {{ job.created_at|date:"Y년 m월 d일 H:i" }} /
+    마감일: {{ job.deadline|date:"Y년 m월 d일" }} /
+    분야: {{ job.get_category_display }}
+  </p>
+
+  <div class="job-group">
+    <h3>상세 설명</h3>
+    <p>{{ job.description|linebreaks }}</p>
+  </div>
+
+  <div class="job-group">
+    <h3>근무지역</h3>
+    <p>{{ job.location }}</p>
+  </div>
+
+  <div class="job-group">
+    <h3>급여</h3>
+    <p>{{ job.salary }}</p>
+  </div>
+
+  <div class="job-group">
+    <h3>모집 기술 스택</h3>
+    <ul class="job-tech-list">
+      {% for stack in job.tech_stack.all %}
+        <li>{{ stack.name }}</li>
+      {% empty %}
+        <li>지정된 기술 스택 없음</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="job-actions">
+    <button class="job-detail-btn" onclick="location.href='{% url 'workhub:job_edit' job.pk %}'">수정하기</button>
+    <button class="job-detail-btn outline" onclick="location.href='{% url 'workhub:job_list' %}'">목록으로</button>
+  </div>
+</div>
+{% endblock %}

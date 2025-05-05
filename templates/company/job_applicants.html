@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}지원자 목록{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <h2 class="job-title">📋 지원자 목록 - {{ job.title }}</h2>
+
+  {% if applications %}
+    <ul class="job-list">
+      {% for application in applications %}
+        <li class="job-list-item-line">
+          <div class="job-list-left">
+            <strong>{{ application.user.username }}</strong> 님 - 이력서: 
+            <a href="{% url 'workhub:company_view_resume' application.resume.pk %}" class="job-title-link">
+              {{ application.resume.title }}
+            </a>
+            <p class="job-date">지원일: {{ application.applied_at|date:"Y년 m월 d일 H:i" }}</p>
+            <p class="job-date">상태: {{ application.get_status_display }}</p>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>아직 지원한 사용자가 없습니다.</p>
+  {% endif %}
+</div>
+{% endblock %}

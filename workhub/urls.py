@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView, JobPostDetailView, MyApplicationsView, RecommendedResumeListView
-from .views import JobPostCreateView, JobPostUpdateView, JobPostListView, ApplyJobView, PublicJobListView, PublicJobDetailView, ToggleScrapView
+from .views import ResumeCreateView, ResumeUpdateView, ResumeListView, ResumeDetailView, JobPostDetailView, MyApplicationsView, RecommendedResumeListView, CompanyViewResumeDetailView
+from .views import JobPostCreateView, JobPostUpdateView, JobPostListView, ApplyJobView, PublicJobListView, PublicJobDetailView, ToggleScrapView, JobApplicantsView
 from workhub.views import main_dashboard
 
 app_name = 'workhub'
@@ -32,5 +32,6 @@ urlpatterns = [
 
     #기업 기능
     path('jobs/<int:pk>/recommended/', RecommendedResumeListView.as_view(), name='recommended_resumes'),
-
+    path('jobs/<int:pk>/applicants/', JobApplicantsView.as_view(), name='job_applicants'),
+    path('resume/<int:pk>/view/', CompanyViewResumeDetailView.as_view(), name='company_view_resume'),
 ]

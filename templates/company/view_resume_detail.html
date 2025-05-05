@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}지원자 이력서 보기{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/job.css' %}">
+
+<div class="job-container">
+  <!-- 이력서 제목 및 작성일 -->
+  <div class="job-title-row">
+    <h2 class="job-title">{{ resume.title }}</h2>
+    <div class="job-stats">
+      <span class="job-views">작성일 {{ resume.created_at|date:"Y년 m월 d일" }}</span>
+    </div>
+  </div>
+
+  <!-- 지원자 이름 -->
+  <div class="job-group">
+    <label>지원자</label>
+    <p><strong>{{ resume.user.username }}</strong></p>
+  </div>
+
+  <!-- 분야 -->
+  <div class="job-group">
+    <label>지원 분야</label>
+    <p>{{ resume.get_category_display }}</p>
+  </div>
+
+  <!-- 이력서 내용 -->
+  <div class="job-group">
+    <label>이력서 내용</label>
+    <p>{{ resume.content|linebreaks }}</p>
+  </div>
+
+  <!-- 첨부 파일 -->
+  <div class="job-group">
+    <label>첨부 파일</label>
+    {% if resume.uploaded_file %}
+      <a href="{{ resume.uploaded_file.url }}" target="_blank" class="job-detail-btn outline">다운로드</a>
+    {% else %}
+      <p>첨부된 파일이 없습니다.</p>
+    {% endif %}
+  </div>
+
+  <!-- 기술 스택 -->
+  <div class="job-group">
+    <label>보유 기술 스택</label>
+    <ul class="job-tech-list">
+      {% for tech in resume.tech_stack.all %}
+        <li>{{ tech.name }}</li>
+      {% empty %}
+        <li>선택된 기술 없음</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <!-- 돌아가기 -->
+  <div class="job-actions">
+    <button class="job-detail-btn outline" onclick="history.back()">← 돌아가기</button>
+  </div>
+</div>
+{% endblock %}

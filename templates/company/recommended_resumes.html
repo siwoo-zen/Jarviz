@@ -14,7 +14,7 @@
       {% for resume in recommended_resumes %}
         <li class="job-list-item-line">
           <div class="job-list-left">
-            <a href="{% url 'workhub:resume_detail' resume.pk %}" class="job-title-link">
+            <a href="{% url 'workhub:company_view_resume' resume.pk %}" class="job-title-link">
               {{ resume.title }}
             </a>
             <span class="job-date">

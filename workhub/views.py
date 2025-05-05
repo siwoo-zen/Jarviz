@@ -207,3 +207,19 @@ class MyApplicationsView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Application.objects.select_related('job', 'resume').filter(user=self.request.user).order_by('-applied_at')
+    
+class RecommendedResumeListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
+    model = Resume
+    template_name = 'company/recommended_resumes.html'
+    context_object_name = 'recommended_resumes'
+
+    def get_queryset(self):
+        job = get_object_or_404(JobPost, pk=self.kwargs['pk'], employer=self.request.user)
+        return Resume.objects.filter(
+            tech_stack__in=job.tech_stack.all()
+        ).exclude(
+            applications__job=job
+        ).distinct()
+
+    def test_func(self):
+        return self.request.user.is_authenticated and self.request.user.is_company

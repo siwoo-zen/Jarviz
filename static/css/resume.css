@@ -289,3 +289,68 @@
 .close-btn:hover {
   color: #e67e0a;
 }
+
+/* ===== 네비게이션바 ===== */
+.job-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 25px;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.job-filter-bar label {
+  font-weight: bold;
+  margin-right: 6px;
+  font-size: 14px;
+  color: #444;
+}
+
+.job-filter-select {
+  padding: 8px 20px 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  min-width: 90px;
+  appearance: none; /* 브라우저 기본 화살표 제거 */
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23444' d='M0 2l4 4 4-4H0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+}
+
+.job-filter-select:focus {
+  outline: none;
+  border-color: #ff7a00;
+}
+
+.job-filter-active {
+  background-color: #ff7a00;
+  color: #fff;
+  border-color: #ff7a00;
+}
+
+.filter-checkbox-btn {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-checkbox-btn input[type="checkbox"] {
+  display: none;
+}
+
+.filter-checkbox-btn.checked {
+  background-color: #ff7a00;
+  color: #fff;
+  border-color: #ff7a00;
+}

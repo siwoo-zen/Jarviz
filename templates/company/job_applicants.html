@@ -21,6 +21,9 @@
             <p class="job-date">지원일: {{ application.applied_at|date:"Y년 m월 d일 H:i" }}</p>
             <p class="job-date">상태: {{ application.get_status_display }}</p>
           </div>
+          <div class="match-box">
+            기술스택: {{ application.matched_tech_count }}개 일치
+          </div>
         </li>
       {% endfor %}
     </ul>

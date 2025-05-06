@@ -69,9 +69,11 @@
               </form>
             </li>
             {% if latest_job %}
-            <form action="{% url 'workhub:recommended_resumes' latest_job.pk %}" method="get">
-                <button type="submit" class="sidebar-btn">추천 인재</button>
-            </form>
+            <li>
+              <form action="{% url 'workhub:recommended_resumes' latest_job.pk %}" method="get">
+                  <button type="submit" class="sidebar-btn">추천 인재</button>
+              </form>
+            </li>
             {% endif %}
             <li>지원자 관리</li>
             <li>채용 결과 등록</li>

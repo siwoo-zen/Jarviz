@@ -113,6 +113,12 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
+LANGUAGES = [
+    ('ko', '한국어'),
+    ('en', 'English'),
+    ('es', 'Español'),
+]
+
 USE_TZ = True
 
 
@@ -126,6 +132,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [

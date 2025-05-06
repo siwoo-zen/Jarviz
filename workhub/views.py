@@ -21,6 +21,9 @@ def main_dashboard(request):
     job_posts = None
     total_views = None
     applicant_count = None
+    recommended_resumes = []
+    recommended_jobs = []
+    recent_applications = []
     is_employer = False
 
     if request.user.is_authenticated:
@@ -29,8 +32,35 @@ def main_dashboard(request):
             job_posts = JobPost.objects.filter(employer=request.user)
             total_views = job_posts.aggregate(Sum('views'))['views__sum'] or 0
             applicant_count = job_posts.aggregate(Sum('applicants'))['applicants__sum'] or 0
+
+            for job in job_posts:
+                job.applicant_count = job.applications.count()
+
+            if job_posts.exists():
+                recent_job = job_posts.first()
+                job_tech_ids = set(recent_job.tech_stack.values_list('id', flat=True))
+
+                recommended_resumes = Resume.objects.filter(
+                    tech_stack__in=recent_job.tech_stack.all()
+                ).distinct()[:3]
+
+                for resume in recommended_resumes:
+                    resume_tech_ids = set(resume.tech_stack.values_list('id', flat=True))
+                    resume.matched_tech_count = len(job_tech_ids & resume_tech_ids)
         else:
             resume = Resume.objects.filter(user=request.user).first()
+
+            # 추천 공고
+            if resume:
+                recommended_jobs = JobPost.objects.filter(
+                    tech_stack__in=resume.tech_stack.all()
+                ).distinct().order_by('-created_at')[:3]
+
+            # 최근 지원 내역
+            recent_applications = Application.objects.filter(
+            user=request.user
+            ).select_related('job').order_by('-applied_at')[:3]
+
 
     return render(request, 'main.html', {
         'resume': resume,
@@ -38,7 +68,11 @@ def main_dashboard(request):
         'job_posts': job_posts,
         'applicant_count': applicant_count,
         'total_views': total_views,
+        'recommended_resumes': recommended_resumes,
+        'recommended_jobs': recommended_jobs,
+        'recent_applications': recent_applications,
     })
+
 
 
 # 이력서 뷰
@@ -141,6 +175,7 @@ class JobPostDetailView(DetailView):
         if self.request.user != obj.employer:  # 본인이 보면 조회수 증가 제외
             obj.views = F('views') + 1
             obj.save(update_fields=['views'])
+            obj.refresh_from_db(fields=['views'])
         return obj
 
 

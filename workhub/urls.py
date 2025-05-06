@@ -34,4 +34,5 @@ urlpatterns = [
     path('jobs/<int:pk>/recommended/', RecommendedResumeListView.as_view(), name='recommended_resumes'),
     path('jobs/<int:pk>/applicants/', JobApplicantsView.as_view(), name='job_applicants'),
     path('resume/<int:pk>/view/', CompanyViewResumeDetailView.as_view(), name='company_view_resume'),
+
 ]

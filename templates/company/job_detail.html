@@ -16,12 +16,14 @@
       </button>
     </div>
   </div>
+
   <p class="job-meta">
     등록일: {{ job.created_at|date:"Y년 m월 d일 H:i" }} /
     마감일: {{ job.deadline|date:"Y년 m월 d일" }} /
     분야: {{ job.get_category_display }}
   </p>
 
+  <br>
   <div class="job-group">
     <h3>상세 설명</h3>
     <p>{{ job.description|linebreaks }}</p>
@@ -30,6 +32,16 @@
   <div class="job-group">
     <h3>근무지역</h3>
     <p>{{ job.location }}</p>
+  </div>
+
+  <div class="job-group">
+    <h3>요구 학력</h3>
+    <p>{{ job.get_education_required_display }}</p>
+  </div>
+
+  <div class="job-group">
+    <h3>요구 경력</h3>
+    <p>{{ job.get_experience_required_display }}</p>
   </div>
 
   <div class="job-group">

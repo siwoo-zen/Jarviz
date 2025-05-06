@@ -14,6 +14,29 @@ CATEGORY_CHOICES = [
     ('etc', '기타'),
 ]
 
+LOCATION_CHOICES = [
+    ('seoul', '서울'),
+    ('busan', '부산'),
+    ('incheon', '인천'),
+    ('daegu', '대구'),
+    ('gyeonggi', '경기'),
+    ('etc', '상관없음'),
+]
+
+EXPERIENCE_CHOICES = [
+    ('entry', '신입'),
+    ('mid', '1~3년차'),
+    ('senior', '4~7년차'),
+    ('expert', '8년 이상'),
+]
+
+EDUCATION_CHOICES = [
+    ('highschool', '고졸'),
+    ('college', '초대졸'),
+    ('bachelor', '대졸'),
+    ('master', '석사 이상'),
+]
+
 class TechStack(models.Model):
     name = models.CharField(max_length=50)
 
@@ -25,9 +48,18 @@ class Resume(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
     uploaded_file = models.FileField(upload_to='resumes/%Y/%m/%d/', blank=True, null=True)
-    
+    experience = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES, default='entry')
+    education = models.CharField(max_length=20, choices=EDUCATION_CHOICES, default='bachelor')
+    preferred_location = models.CharField(max_length=20, choices=LOCATION_CHOICES, default='seoul')
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     tech_stack = models.ManyToManyField(TechStack, blank=True)
+
+    preferred_location = models.CharField(
+        max_length=20,
+        choices=LOCATION_CHOICES,
+        default='seoul',
+        verbose_name='근무 가능 지역'
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -45,10 +77,12 @@ class JobPost(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    location = models.CharField(max_length=100)
     salary = models.CharField(max_length=100)
     deadline = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
+    location = models.CharField(max_length=100, choices=LOCATION_CHOICES, default='seoul')
+    experience = models.CharField(max_length=20, choices=EXPERIENCE_CHOICES, default='entry')
+    education = models.CharField(max_length=20, choices=EDUCATION_CHOICES, default='bachelor')
 
     tech_stack = models.ManyToManyField(TechStack, blank=True)
     views = models.PositiveIntegerField(default=0)  # 조회수

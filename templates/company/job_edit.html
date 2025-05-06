@@ -10,7 +10,7 @@
   <h2 class="job-title">채용공고 수정</h2>
   <form method="post">
     {% csrf_token %}
-
+    <br>
     {% if form.errors %}
       <div class="job-errors">
         <ul>
@@ -38,6 +38,16 @@
       {{ form.category }}
     </div>
 
+    <div class="job-group">
+      <label for="{{ form.education.id_for_label }}">요구 학력</label>
+      {{ form.education }}
+    </div>
+    
+    <div class="job-group">
+      <label for="{{ form.experience.id_for_label }}">요구 경력</label>
+      {{ form.experience }}
+    </div>
+    
     <div class="job-group">
       <label for="{{ form.location.id_for_label }}">근무 지역</label>
       {{ form.location }}

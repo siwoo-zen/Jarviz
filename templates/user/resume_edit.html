@@ -39,6 +39,21 @@
     </div>
 
     <div class="resume-group">
+      <label for="{{ form.education.id_for_label }}">학력</label>
+      {{ form.education }}
+    </div>
+    
+    <div class="resume-group">
+      <label for="{{ form.experience.id_for_label }}">경력</label>
+      {{ form.experience }}
+    </div>
+    
+    <div class="resume-group">
+      <label for="{{ form.preferred_location.id_for_label }}">근무 가능 지역</label>
+      {{ form.preferred_location }}
+    </div>    
+
+    <div class="resume-group">
       <label for="{{ form.category.id_for_label }}">직무 카테고리</label>
       {{ form.category }}
     </div>

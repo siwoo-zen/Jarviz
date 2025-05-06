@@ -32,5 +32,8 @@
   {% else %}
     <p>등록한 채용공고가 없습니다.</p>
   {% endif %}
+  <div class="job-actions" style="margin-top: 30px; text-align: right;">
+    <a href="{% url 'workhub:job_create' %}" class="job-detail-btn">📢 공고 등록하기</a>
+  </div>  
 </div>
 {% endblock %}

@@ -123,6 +123,7 @@ class JobPostListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
 
     def get_queryset(self):
         return JobPost.objects.filter(employer=self.request.user).order_by('-created_at')
+    
 
     def test_func(self):
         return self.request.user.is_authenticated and self.request.user.is_company
@@ -132,6 +133,13 @@ class JobPostDetailView(DetailView):
     model = JobPost
     template_name = 'company/job_detail.html'
     context_object_name = 'job'
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if self.request.user != obj.employer:  # 본인이 보면 조회수 증가 제외
+            obj.views = F('views') + 1
+            obj.save(update_fields=['views'])
+        return obj
 
 
 # 사용자 공고 지원

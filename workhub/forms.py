@@ -1,11 +1,13 @@
 # forms.py
 from django import forms
 from .models import Resume, JobPost, Application
+import datetime
+from django.utils import timezone
 
 class ResumeForm(forms.ModelForm):
     class Meta:
         model = Resume
-        fields = ['title', 'content', 'uploaded_file', 'category', 'tech_stack']
+        fields = ['title', 'content', 'uploaded_file', 'category', 'tech_stack', 'experience', 'education', 'preferred_location']
         widgets = {
             'tech_stack': forms.CheckboxSelectMultiple,
             'category': forms.Select, 
@@ -14,15 +16,22 @@ class ResumeForm(forms.ModelForm):
 class JobPostForm(forms.ModelForm):
     class Meta:
         model = JobPost
-        fields = ['title', 'description', 'category', 'location', 'salary', 'deadline', 'tech_stack']
+        fields = ['title', 'description', 'category', 'location', 'salary', 'deadline', 'tech_stack', 'education', 'experience']
         widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date'}),
             'category': forms.Select(),
+            'location': forms.Select(), 
+            'education': forms.Select(),  
+            'experience': forms.Select(),  
             'description': forms.Textarea(attrs={'rows': 5}),
             'tech_stack': forms.CheckboxSelectMultiple,
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.instance.pk:  # 모집 마감일 디폴트 1개월+
+            self.initial['deadline'] = (timezone.now() + datetime.timedelta(days=30)).date()
 
-class ApplyJobForm(forms.ModelForm):  # 💡 이름 변경
+class ApplyJobForm(forms.ModelForm): 
     class Meta:
         model = Application
         fields = ['resume', 'cover_letter']

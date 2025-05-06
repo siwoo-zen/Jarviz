@@ -23,6 +23,7 @@
       </div>
     {% endif %}
     <br>
+
     <div class="job-group">
       <label for="{{ form.title.id_for_label }}">공고 제목</label>
       {{ form.title }}
@@ -39,7 +40,17 @@
     </div>
 
     <div class="job-group">
-      <label for="{{ form.location.id_for_label }}">근무지</label>
+      <label for="{{ form.education.id_for_label }}">요구 학력</label>
+      {{ form.education }}
+    </div>
+    
+    <div class="job-group">
+      <label for="{{ form.experience.id_for_label }}">요구 경력</label>
+      {{ form.experience }}
+    </div>
+    
+    <div class="job-group">
+      <label for="{{ form.location.id_for_label }}">근무 지역</label>
       {{ form.location }}
     </div>
 

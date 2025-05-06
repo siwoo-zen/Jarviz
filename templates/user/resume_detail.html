@@ -25,6 +25,21 @@
   {% endif %}
 
   <div class="resume-group">
+    <h3>학력</h3>
+    <p>{{ resume.get_education_display }}</p>
+  </div>
+
+  <div class="resume-group">
+    <h3>경력</h3>
+    <p>{{ resume.get_experience_display }}</p>
+  </div>
+
+  <div class="resume-group">
+    <h3>근무 가능 지역</h3>
+    <p>{{ resume.preferred_location }}</p>
+  </div>
+
+  <div class="resume-group">
     <h3>사용 기술</h3>
     <ul class="resume-tech-list">
       {% for stack in resume.tech_stack.all %}

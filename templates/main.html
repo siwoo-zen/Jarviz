@@ -14,13 +14,13 @@
 <div class="dashboard-summary">
   {% if job_posts %}
   <a href="{% url 'workhub:job_list' %}" class="card-link">
-    <div class="card">📢 등록한 공고 수: {{ job_posts|length }}</div>
+    <div class="card">등록한 공고 수: {{ job_posts|length }}</div>
   </a>
   <a href="{% url 'workhub:job_list' %}" class="card-link">
-    <div class="card">👥 전체 지원자 수: {{ applicant_count|default:"-" }}</div>
+    <div class="card">전체 지원자 수: {{ applicant_count|default:"-" }}</div>
   </a>
   <a href="{% url 'workhub:job_list' %}" class="card-link">
-    <div class="card">📈 공고 조회수: {{ total_views|default:"-" }}</div>
+    <div class="card">공고 조회수: {{ total_views|default:"-" }}</div>
   </a>
   {% else %}
     <div class="card" style="flex: 1; text-align: center;">
@@ -28,57 +28,68 @@
       <button class="employer-detail-btn" onclick="location.href='{% url 'workhub:job_create' %}'">공고 등록하기</button>
     </div>
   {% endif %}
-  </div>
-  <div class="data-charts">
-    <div class="card">
-      <h3>지원자 수 추이</h3>
-      <p>[차트 영역]</p>
+    <div class="domain-overview">
+      <div class="recommended-header">
+        <h3 class="recommended-title">추천 이력서</h3>
+        <a href="{% url 'workhub:recommended_resumes' job_posts.0.pk %}" class="recommended-more-link">더보기 &gt;</a>
+      </div>
+    
+      <ul class="recommended-resume-list">
+        {% for resume in recommended_resumes %}
+          <li class="resume-item" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-top: 1px solid #eee;">
+            <div>
+              <a href="{% url 'workhub:company_view_resume' resume.pk %}" class="resume-item-title" style="font-weight: bold;">
+                {{ resume.title }}
+              </a>
+              <span class="resume-item-category"> - {{ resume.get_category_display }}</span>
+            </div>
+            <div class="resume-match-info" style="font-size: 13px; color: #1F3C88;">
+              기술스택: {{ resume.matched_tech_count }}개 일치
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
     </div>
-    <div class="card">
-      <h3>공고 클릭 수</h3>
-      <p>[차트 영역]</p>
-    </div>
-  </div>
+  
+  
 
-  <div class="domain-overview">
-    <h3>채용공고 관리</h3>
-    {% if job_posts %}
-      <table>
-        <thead>
+<div class="domain-overview">
+  <h3>채용공고 관리</h3>
+  {% if job_posts %}
+    <table>
+      <thead>
+        <tr>
+          <th>공고명</th>
+          <th>등록일</th>
+          <th>마감일</th>
+          <th>지원자 수</th>
+          <th>관리</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in job_posts %}
           <tr>
-            <th>공고명</th>
-            <th>등록일</th>
-            <th>마감일</th>
-            <th>지원자 수</th>
-            <th>관리</th>
+            <td class="job-title-cell">
+              <a href="{% url 'workhub:job_detail' job.pk %}" class="job-title-link">
+                {{ job.title }}
+              </a>
+            </td>
+            <td>{{ job.created_at|date:"Y-m-d" }}</td>
+            <td>{{ job.deadline|date:"Y-m-d" }}</td>
+            <td class="job-apply-count">{{ job.applications.count }}</td>
+            <td>
+              <a href="{% url 'workhub:job_edit' job.pk %}" class="job-edit-btn">수정하기</a>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {% for job in job_posts %}
-            <tr>
-              <td>
-                <a href="{% url 'workhub:job_detail' job.pk %}" class="job-title-link">
-                  {{ job.title }}
-                </a>
-              </td>
-              <td>{{ job.created_at|date:"Y-m-d" }}</td>
-              <td>{{ job.deadline|date:"Y-m-d" }}</td>
-              <td>-</td>  <!-- 추후 지원자 수 연결 예정 -->
-              <td>
-                <a href="{% url 'workhub:job_edit' job.pk %}" class="job-edit-btn">수정하기</a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    {% else %}
-      <p>등록된 공고가 없습니다.</p>
-    {% endif %}
-  </div>
-
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>등록된 공고가 없습니다.</p>
+  {% endif %}
+</div>
 
   {% else %}
-  <!-- ✅ 지원자용 대시보드 -->
   <div class="dashboard-summary">
     <div class="card">
       {% if user.is_authenticated %}
@@ -95,27 +106,42 @@
         <p><a href="{% url 'accounts:login' %}">로그인</a> 후 이력서를 작성하세요.</p>
       {% endif %}
     </div>       
-    <div class="card">🔍 추천 공고 수: 4건</div>
-    <div class="card">📝 최근 지원 내역: 2건</div>
-  </div>
-
+      <div class="card">
+        <h3>추천 공고</h3>
+        <p>총 {{ recommended_jobs|length }}건의 채용공고가 추천되었습니다.</p>
+        <a href="{% url 'workhub:job_list' %}" class="resume-detail-btn">목록 보기</a>
+      </div>
+      
+      <div class="card">
+        <h3>최근 지원 내역</h3>
+        <p>{{ recent_applications|length }}건의 지원 이력이 있습니다.</p>
+        <a href="{% url 'workhub:my_applications' %}" class="resume-detail-btn">목록 보기</a>
+      </div>
+    </div>
+  
   <div class="data-charts">
     <div class="card">
       <h3>추천 채용공고</h3>
       <ul>
-        <li>백엔드 개발자 - (기업A)</li>
-        <li>AI 엔지니어 - (기업B)</li>
-        <li>프론트엔드 인턴 - (기업C)</li>
+        {% for job in recommended_jobs %}
+          <li>{{ job.title }}</li>
+        {% empty %}
+          <li>추천 공고가 없습니다.</li>
+        {% endfor %}
       </ul>
     </div>
     <div class="card">
       <h3>최근 지원 히스토리</h3>
       <ul>
-        <li>2025-04-29 - Java 개발자 (지원 완료)</li>
-        <li>2025-04-27 - UI 디자이너 (검토 중)</li>
+        {% for app in recent_applications %}
+          <li>{{ app.created_at|date:"Y-m-d" }} - {{ app.job.title }} (지원 완료)</li>
+        {% empty %}
+          <li>최근 지원 내역이 없습니다.</li>
+        {% endfor %}
       </ul>
     </div>
   </div>
+  
   {% endif %}
 </div>
 {% endblock %}

@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('workhub.urls', 'workhub'), namespace='workhub')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('i18n/', include('django.conf.urls.i18n')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])

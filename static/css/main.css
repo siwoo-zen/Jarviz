@@ -1,168 +1,249 @@
 /* 전체 레이아웃 */
 .container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-  }
-  
-  /* 요약 카드 */
-  .dashboard-summary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-    margin-bottom: 40px;
-  }
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-  .dashboard-summary .card {
-    flex: 1;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  /* 최근 도메인 영역 */
-  .domain-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 30px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.03);
-  }
-  .domain-info button {
-    background: black;
-    color: rgb(230, 127, 10);
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  .domain-info button:hover {
-    background: rgb(230, 127, 10);
-    color: black;
-  }
-  
-  /* 차트 영역 */
-  .data-charts {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-  .data-charts > div {
-    flex: 1;
-    background: #fff;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.04);
-    text-align: center;
-  }
-  
-  /* 채용공고 테이블 */
-  .domain-overview {
-    background: #fff;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.03);
-  }
-  .domain-overview h3 {
-    margin-bottom: 20px;
-  }
-  .domain-overview table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-  }
-  .domain-overview th, td {
-    border: 1px solid #ccc;
-    padding: 12px;
-    text-align: center;
-  }
-  .domain-overview button {
-    background: black;
-    color: rgb(230, 127, 10);
-    padding: 6px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .domain-overview button:hover {
-    background: rgb(230, 127, 10);
-    color: black;
-  }
-  
-  .pagination {
-    text-align: right;
-    font-size: 14px;
-    color: #777;
-  }
-  
-  body.is-employer {
-    background-color: #f8f7fd;
-  }
-  
-  body.is-employer h1 {
-    color: #1F3C88; /* 기업 사용자용 텍스트 컬러 */
-  }
-  
-  body.is-employer .card {
-    border: 2px solid #1F3C88;
-    background-color: #f8f7fd;
-    flex: 1 1 calc(33.333% - 20px);
-    min-width: 200px;
-    max-width: 320px;
-    display: flex;
-  }
+/* 요약 카드 */
+.dashboard-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 40px;
+}
 
-  .resume-detail-btn {
-    display: inline-block;
-    padding: 6px 12px;
-    background-color: #d5781b;
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .resume-detail-btn:hover {
-    background-color: #222;
-  }
+.dashboard-summary .card {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  font-weight: bold;
+  text-align: center;
+}
+
+/* 최근 도메인 영역 */
+.domain-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.03);
+}
+.domain-info button {
+  background: black;
+  color: rgb(230, 127, 10);
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+.domain-info button:hover {
+  background: rgb(230, 127, 10);
+  color: black;
+}
+
+/* 채용공고 테이블 */
+.domain-overview {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px; /* 아웃라인 조금 더 둥글게 */
+  box-shadow: 0 0 10px rgba(31, 60, 136, 0.08); /* 기업 컬러톤 흐리게 그림자 */
+  border: 2px solid #1F3C88; /* 외곽선에 기업 메인 컬러 */
+}
+
+.domain-overview h3 {
+  margin-bottom: 25px;
+  color: #1F3C88;
+}
+
+.domain-overview table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+
+.domain-overview th, .domain-overview td {
+  border: 1px solid rgba(31, 60, 136, 0.2); /* 흐릿한 남색 선 */
+  padding: 12px;
+  text-align: center;
+}
+
+.domain-overview th {
+  background-color: #ffffff;
+  color: #1F3C88;
+  font-weight: bold;
+}
+
+.domain-overview td.job-title-cell {
+  text-align: left;
+  font-weight: bold;
+  color: #1F3C88;
+}
+
+.domain-overview td.job-apply-count {
+  font-weight: bold;
+  color: #0a0418;
+}
+
+.domain-overview button {
+  background: #1F3C88;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.domain-overview button:hover {
+  background: #222;
+  color: #fff;
+}
 
 
-  .employer-detail-btn {
-    display: inline-block;
-    padding: 6px 12px;
-    background-color: #1F3C88;
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .employer-detail-btn:hover {
-    background-color: #222;
-  }
+.pagination {
+  text-align: right;
+  font-size: 14px;
+  color: #777;
+}
 
-  .card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-  .card-link:hover .card {
-    box-shadow: 0 0 12px rgba(31, 60, 136, 0.3);
-    transition: all 0.2s ease;
-  }
-  
+body.is-employer {
+  background-color: #f8f7fd;
+}
+
+body.is-employer h1 {
+  color: #1F3C88;
+}
+
+body.is-employer .card {
+  border: 2px solid #1F3C88;
+  background-color: #f8f7fd;
+  flex: 1 1 calc(33.333% - 20px);
+  min-width: 200px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body.is-employer .recommended-resume-card {
+  flex: 1 1 100% !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  display: block !important;
+}
+
+
+.resume-detail-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #d5781b;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.resume-detail-btn:hover {
+  background-color: #222;
+}
+
+.employer-detail-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #1F3C88;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.employer-detail-btn:hover {
+  background-color: #222;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.card-link:hover .card {
+  box-shadow: 0 0 12px rgba(31, 60, 136, 0.3);
+  transition: all 0.2s ease;
+}
+
+.recommended-resume-card {
+  background-color: #f8f7fd;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 20px;
+  border: 2px solid #1F3C88;
+}
+
+
+.recommended-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  width: 730px;
+}
+
+.recommended-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #1F3C88;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.recommended-more-link {
+  font-size: 14px;
+  color: #1F3C88;
+  text-decoration: none;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.recommended-resume-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resume-item {
+  padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.resume-item-title {
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.resume-item-category {
+  font-size: 13px;
+  color: #888;
+  margin-left: 10px;
+}
+
+.resume-item-title:hover {
+  text-decoration: underline;
+}

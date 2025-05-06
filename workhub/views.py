@@ -232,12 +232,22 @@ class JobApplicantsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['applications'] = self.object.applications.select_related('user', 'resume')
+        applications = self.object.applications.select_related('user', 'resume')
+
+        job_tech_ids = set(self.object.tech_stack.values_list('id', flat=True))  # 기준 공고의 기술 스택
+
+        # 기술 스택 일치 수 계산
+        for app in applications:
+            resume_tech_ids = set(app.resume.tech_stack.values_list('id', flat=True))
+            app.matched_tech_count = len(job_tech_ids & resume_tech_ids)  # 동적으로 속성 추가
+
+        context['applications'] = applications
         return context
 
     def test_func(self):
         job = self.get_object()
         return self.request.user == job.employer and self.request.user.is_company
+
 
 class CompanyViewResumeDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Resume

@@ -367,3 +367,13 @@
   white-space: nowrap;         /* 줄바꿈 방지 */
   vertical-align: middle; 
 }
+
+.info-tag {
+  display: inline-block;
+  background-color: #f2f2f2; /* 연한 회색 배경 */
+  color: #333;
+  padding: 6px 12px;
+  border-radius: 14px;
+  font-size: 14px;
+  font-weight: 500;
+}

@@ -267,14 +267,28 @@ class RecommendedResumeListView(LoginRequiredMixin, UserPassesTestMixin, ListVie
 
     def get_queryset(self):
         job = get_object_or_404(JobPost, pk=self.kwargs['pk'], employer=self.request.user)
+        # 이력서를 모두 보여줌 (지원 여부 관계없이)
         return Resume.objects.filter(
             tech_stack__in=job.tech_stack.all()
-        ).exclude(
-            applications__job=job
         ).distinct()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        job = get_object_or_404(JobPost, pk=self.kwargs['pk'], employer=self.request.user)
+        resumes = context['recommended_resumes']
+
+        job_techs = set(job.tech_stack.values_list('id', flat=True))
+
+        for resume in resumes:
+            resume_techs = set(resume.tech_stack.values_list('id', flat=True))
+            resume.matched_tech_count = len(resume_techs & job_techs)
+
+        context['job'] = job  # 템플릿에서 job.title 등 사용 가능
+        return context
 
     def test_func(self):
         return self.request.user.is_authenticated and self.request.user.is_company
+
 
 class JobApplicantsView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = JobPost

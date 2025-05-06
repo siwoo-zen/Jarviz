@@ -20,19 +20,29 @@
     <p>{{ job.description|linebreaks }}</p>
   </div>
 
+  <div class="job-group">
+    <h3>경력</h3>
+    <p><span class="info-tag">{{ job.get_experience_display }}</p>
+  </div>
+  
+  <div class="job-group">
+    <h3>학력</h3>
+    <p><span class="info-tag">{{ job.get_education_display }}</p>
+  </div>
+
   <div class="resume-group">
     <label>근무지역</label>
-    <p>{{ job.location }}</p>
+    <p><span class="info-tag">{{ job.get_location_display }}</p>
   </div>
 
   <div class="resume-group">
     <label>급여</label>
-    <p>{{ job.salary }}</p>
+    <p><span class="info-tag">{{ job.salary }}</p>
   </div>
 
   <div class="resume-group">
     <label>기술 스택</label>
-    <ul class="resume-list">
+    <ul class="resume-list info-tag">
       {% for tech in job.tech_stack.all %}
         <li>{{ tech.name }}</li>
       {% empty %}

@@ -10,26 +10,26 @@
   <!-- 이력서 제목 및 작성일 -->
   <div class="job-title-row">
     <h2 class="job-title">{{ resume.title }}</h2>
-    <div class="job-stats">
-      <span class="job-views">작성일 {{ resume.created_at|date:"Y년 m월 d일" }}</span>
-    </div>
   </div>
-
+  <div class="job-stats">
+    <span class="job-views">작성일 {{ resume.created_at|date:"Y년 m월 d일" }}</span>
+  </div>
+  <br>
   <!-- 지원자 이름 -->
   <div class="job-group">
-    <label>지원자</label>
+    <h3>지원자</h3>
     <p><strong>{{ resume.user.username }}</strong></p>
   </div>
 
   <!-- 분야 -->
   <div class="job-group">
-    <label>지원 분야</label>
-    <p>{{ resume.get_category_display }}</p>
+    <h3>지원 분야</h3>
+    <p><span class="info-tag">{{ resume.get_category_display }}</p>
   </div>
 
   <!-- 이력서 내용 -->
   <div class="job-group">
-    <label>이력서 내용</label>
+    <h3>이력서 내용</h3>
     <p>{{ resume.content|linebreaks }}</p>
   </div>
 
@@ -42,10 +42,23 @@
       <p>첨부된 파일이 없습니다.</p>
     {% endif %}
   </div>
-
+  <div class="job-group">
+    <h3>경력</h3>
+    <p><span class="info-tag">{{ resume.get_experience_display }}</p>
+  </div>
+  
+  <div class="job-group">
+    <h3>학력</h3>
+    <p><span class="info-tag">{{ resume.get_education_display }}</p>
+  </div>
+  
+  <div class="job-group">
+    <h3>근무 가능 지역</h3>
+    <p><span class="info-tag">{{ resume.get_preferred_location_display }}</p>
+  </div>
   <!-- 기술 스택 -->
   <div class="job-group">
-    <label>보유 기술 스택</label>
+    <h3>보유 기술 스택</h3>
     <ul class="job-tech-list">
       {% for tech in resume.tech_stack.all %}
         <li>{{ tech.name }}</li>

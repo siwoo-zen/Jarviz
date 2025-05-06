@@ -30,13 +30,8 @@
               {% endfor %}
             </div>
           </div>
-          <a href="{% url 'workhub:resume_detail' resume.pk %}" class="job-edit-btn">
-            상세보기
-          </a>
+          <div class="match-box">기술스택: {{ resume.matched_tech_count }}개 일치</div>
         </li>
-        <div class="match-box">
-          기술스택: {{ application.matched_tech_count }}개 일치
-        </div>
       {% endfor %}
     </ul>
   {% else %}

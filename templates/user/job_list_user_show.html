@@ -7,6 +7,49 @@
 <link rel="stylesheet" href="{% static 'css/resume.css' %}">
 
 <div class="resume-container">
+    <form method="get" class="job-filter-bar">
+        <label class="filter-checkbox-btn {% if request.GET.favorite == 'on' %}checked{% endif %}">
+            <input type="checkbox" name="favorite" {% if request.GET.favorite == 'on' %}checked{% endif %} onchange="this.form.submit()">
+            ☆ 관심공고
+        </label>
+        <label>
+            <select name="category" class="job-filter-select" onchange="this.form.submit()">
+            <option disabled selected>직무</option>   <!-- 텍스트로 역할만 표시 -->
+            <option value="">전체</option>             <!-- 실제 전체 필터 -->
+            {% for key, value in CATEGORY_CHOICES %}
+                <option value="{{ key }}" {% if request.GET.category == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+            </select>
+        </label>
+        <label>
+            <select name="experience" class="job-filter-select" onchange="this.form.submit()">
+                <option disabled selected>경력</option>
+                <option value="">전체</option>
+            {% for key, value in EXPERIENCE_CHOICES %}
+                <option value="{{ key }}" {% if request.GET.experience == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+            </select>
+        </label>
+        <label>
+            <select name="education" class="job-filter-select" onchange="this.form.submit()">
+            <option disabled selected>학력</option>
+            <option value="">전체</option>
+            {% for key, value in EDUCATION_CHOICES %}
+                <option value="{{ key }}" {% if request.GET.education == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+            </select>
+        </label>
+        <label>
+            <select name="location" class="job-filter-select" onchange="this.form.submit()">
+            <option disabled selected>근무지역</option>
+            <option value="">전체</option>
+            {% for key, value in LOCATION_CHOICES %}
+                <option value="{{ key }}" {% if request.GET.location == key %}selected{% endif %}>{{ value }}</option>
+            {% endfor %}
+            </select>
+        </label>
+    </form>
+      
   <h2 class="resume-title">채용공고 목록</h2>
 
   {% if job_posts %}

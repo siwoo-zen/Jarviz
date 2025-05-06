@@ -12,6 +12,8 @@ from django.db.models import F, Sum
 from django.views import View
 from django.http import JsonResponse, HttpResponseBadRequest
 from django.core.exceptions import PermissionDenied
+from workhub.models import CATEGORY_CHOICES, EXPERIENCE_CHOICES, EDUCATION_CHOICES, LOCATION_CHOICES
+
 
 # 메인 대시보드
 def main_dashboard(request):
@@ -168,16 +170,57 @@ class PublicJobListView(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return JobPost.objects.order_by('-created_at')
+        queryset = JobPost.objects.order_by('-created_at')
+
+        # 필터링용 GET 파라미터 추출
+        category = self.request.GET.get('category')
+        experience = self.request.GET.get('experience')
+        education = self.request.GET.get('education')
+        location = self.request.GET.get('location')
+        favorite = self.request.GET.get('favorite')
+
+        # 조건별 필터링
+        if category:
+            queryset = queryset.filter(category=category)
+        if experience:
+            queryset = queryset.filter(experience=experience)
+        if education:
+            queryset = queryset.filter(education=education)
+        if location:
+            queryset = queryset.filter(location=location)
+        if favorite and self.request.user.is_authenticated:
+            scrap_ids = JobScrap.objects.filter(user=self.request.user).values_list('job_id', flat=True)
+            queryset = queryset.filter(id__in=scrap_ids)
+
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # 기존 스크랩 공고 ID 유지
         if self.request.user.is_authenticated:
             scraps = JobScrap.objects.filter(user=self.request.user)
             context['scrapped_jobs'] = [s.job.id for s in scraps]
         else:
             context['scrapped_jobs'] = []
+
+        # 드롭다운 선택값 유지
+        context['selected'] = {
+            'category': self.request.GET.get('category', ''),
+            'experience': self.request.GET.get('experience', ''),
+            'education': self.request.GET.get('education', ''),
+            'location': self.request.GET.get('location', ''),
+            'favorite': self.request.GET.get('favorite', ''),
+        }
+
+        # 드롭다운 메뉴용 choice 전달
+        context['CATEGORY_CHOICES'] = CATEGORY_CHOICES
+        context['EXPERIENCE_CHOICES'] = EXPERIENCE_CHOICES
+        context['EDUCATION_CHOICES'] = EDUCATION_CHOICES
+        context['LOCATION_CHOICES'] = LOCATION_CHOICES
+
         return context
+
 
 
 class PublicJobDetailView(DetailView):

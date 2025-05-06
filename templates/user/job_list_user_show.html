@@ -58,10 +58,11 @@
             <li class="resume-list-item-line job-list-item-enhanced">
                 <!-- 왼쪽: 즐겨찾기 + 제목 + 분야 -->
                 <div class="job-list-col job-title-col">
-                <span class="star-icon {% if job.id in scrapped_jobs %}scrapped{% endif %}"data-job-id="{{ job.id }}">★</span>
-                <a href="{% url 'workhub:public_job_detail' job.pk %}" class="resume-title-link">
-                    [{{ job.get_category_display }}] {{ job.title }}
-                </a>
+                    <span class="star-icon {% if job.id in scrapped_jobs %}scrapped{% endif %}"data-job-id="{{ job.id }}">★</span>
+                    <span class="job-category-badge">{{ job.get_category_display }}</span>
+                    <a href="{% url 'workhub:public_job_detail' job.pk %}" class="resume-title-link">
+                      {{ job.title }}
+                    </a>
                 </div>
         
                 <!-- 가운데: 등록일 -->

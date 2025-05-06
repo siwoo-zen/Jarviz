@@ -3,7 +3,7 @@
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    max-width: 800px;
+    max-width: 1100px;
     margin: 40px auto;
   }
   
@@ -99,7 +99,7 @@
   }
   
   .resume-title-link {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #222;
     text-decoration: none;
@@ -240,21 +240,21 @@
 
   /* 칼럼 너비 제한 (원하는 만큼 조절) */
   .job-title-col {
-    flex: 2;
+    flex: 2.5;
     display: flex;
     align-items: center;
     gap: 8px;
   }
 
   .job-date-col {
-    flex: 1;
+    flex: 0.8;
     font-size: 14px;
     color: #666;
     text-align: center;
   }
 
   .job-btn-col {
-    flex: 1;
+    flex: 0.4;
     text-align: right;
   }
 
@@ -353,4 +353,17 @@
   background-color: #ff7a00;
   color: #fff;
   border-color: #ff7a00;
+}
+
+.job-category-badge {
+  display: inline-block;
+  background-color: #fdefdb; 
+  color: #222;            
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 12px;
+  margin-right: 8px;
+  white-space: nowrap;         /* 줄바꿈 방지 */
+  vertical-align: middle; 
 }
